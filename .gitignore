@@ -18,3 +18,15 @@ frontend/.angular/
 # ===== OS =====
 .DS_Store
 Thumbs.db
+
+# ===== IDE =====
+.vscode/
+.idea/
+
+# ===== ANGULAR =====
+node_modules/
+dist/
+.angular/
+
+# ===== Java =====
+target/

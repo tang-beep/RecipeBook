@@ -1,0 +1,63 @@
+<div class="container">
+
+  <div class="header">
+    <h1>Mes Recettes</h1>
+    <a routerLink="/recipes/new" class="btn-primary">+ Nouvelle recette</a>
+  </div>
+
+  <div *ngIf="loading()" class="loading">
+    Chargement...
+  </div>
+
+  <div *ngIf="!loading() && error()" class="error">
+    {{ error() }}
+  </div>
+
+  <div *ngIf="!loading() && recipes().length === 0" class="empty">
+    Aucune recette pour l'instant.
+  </div>
+
+  <div *ngIf="!loading() && recipes().length > 0" class="recipe-grid">
+
+    <div
+      class="recipe-card"
+      *ngFor="let recipe of recipes()"
+      [routerLink]="['/recipes', recipe.id]"
+    >
+
+      <div class="card-header">
+        <h2>{{ recipe.title }}</h2>
+        <span class="season-badge">{{ recipe.season }}</span>
+      </div>
+
+      <p class="description">
+        {{ recipe.description }}
+      </p>
+
+      <div class="card-footer">
+        <span>⏱ {{ recipe.totalTime ?? '?' }} min</span>
+        <span>👥 {{ recipe.servings}} </span>
+
+        <div class="actions">
+          <a
+            [routerLink]="['/recipes', recipe.id, 'edit']"
+            class="btn-edit"
+            (click)="$event.stopPropagation()"
+          >
+            Modifier
+          </a>
+
+          <button
+            class="btn-delete"
+            (click)="delete(recipe.id!, $event)"
+          >
+            Supprimer
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
